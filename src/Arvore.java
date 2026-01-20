@@ -18,6 +18,7 @@ public class Arvore<T extends Comparable>{
                         atual = atual.getEsquerda();
                     }else{
                         atual.setEsquerda(novoElemento);
+                        System.out.println("folha: " + novoElemento.getValor() + " a esquerda de " + atual.getValor());
                         break; // se adicionou, para
                     }
                 }else{ // se for maior ou igual, vai pra direita
@@ -25,6 +26,7 @@ public class Arvore<T extends Comparable>{
                         atual = atual.getDireita();
                     }else{
                         atual.setDireita(novoElemento);
+                        System.out.println("folha: " + novoElemento.getValor() + " a direita de " + atual.getValor());
                         break; // se adicionou, para
                     }
                 }

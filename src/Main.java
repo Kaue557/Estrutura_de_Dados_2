@@ -2,10 +2,11 @@ public class Main {
 
     void main(){
         Arvore<Integer> arvore = new Arvore<>();
-        arvore.adiciona(10);
-        arvore.adiciona(5);
-        arvore.adiciona(7);
-        arvore.adiciona(6);
+        arvore.adiciona(30); // raiz
+        arvore.adiciona(15);
+        arvore.adiciona(45);
+        arvore.adiciona(51);
+        arvore.adiciona(19);
 
         System.out.println("Em ordem:");
         arvore.emOrdem(arvore.getRaiz());
