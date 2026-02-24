@@ -1,4 +1,4 @@
-package src;
+package Pilha;
 public class Pilha{
     private int topo;
     private int []itens;
@@ -13,13 +13,15 @@ public boolean pilhaCheia(){
 
 public Pilha(int capacidade){
     this.capacidade = capacidade;
+    this.itens = new int[capacidade];
+    this.topo = -1;
 }
 
 public void empilhar(int valor){
     if(this.pilhaCheia()){
         throw new RuntimeException("Pilha cheia");
     }
-    itens[++topo] = valor;
+    this.itens[++topo] = valor;
 }
 
 public int desempilhar() {

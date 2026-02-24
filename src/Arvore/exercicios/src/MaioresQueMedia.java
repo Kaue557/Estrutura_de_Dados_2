@@ -1,3 +1,5 @@
+package Arvore.exercicios.src;
+
 import java.util.Scanner;
 
 public class MaioresQueMedia{

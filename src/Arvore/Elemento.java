@@ -1,3 +1,5 @@
+package Arvore;
+
 public class Elemento<T> {
     private T valor;
     private Elemento<T> esquerda;

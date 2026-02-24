@@ -1,3 +1,5 @@
+package Arvore;
+
 public class Main {
 
     void main(){
