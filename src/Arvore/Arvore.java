@@ -40,14 +40,6 @@ public class Arvore<T extends Comparable>{
         return raiz;
     }
 
-    public void emOrdem(Elemento<T> atual){ // esq - cima - dir
-        if(atual != null){
-            emOrdem(atual.getEsquerda());
-            System.out.println(atual.getValor());
-            emOrdem(atual.getDireita());
-        }
-    }
-
     public void preOrdem(Elemento<T> atual){ // cima - esq - dir
         if(atual != null){
             System.out.println(atual.getValor());
@@ -56,8 +48,16 @@ public class Arvore<T extends Comparable>{
         }
     }
 
-    public void posOrdem(Elemento<T> atual){ // esq - dir - cima
+    public void emOrdem(Elemento<T> atual){ // esq - cima - dir
         if(atual != null){
+            emOrdem(atual.getEsquerda());
+            System.out.println(atual.getValor());
+            emOrdem(atual.getDireita());
+        }
+    }
+
+    public void posOrdem(Elemento<T> atual){ // esq - dir - cima
+            if(atual != null){
             posOrdem(atual.getEsquerda());
             posOrdem(atual.getDireita());
             System.out.println(atual.getValor());
