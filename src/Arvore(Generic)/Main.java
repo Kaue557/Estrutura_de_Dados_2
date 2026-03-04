@@ -1,8 +1,6 @@
-package Arvore;
-
 public class Main {
 
-    void main(){
+    public static void main(String[] args){
         Arvore<Integer> arvore = new Arvore<>();
         arvore.adiciona(30); // raiz
         arvore.adiciona(15);

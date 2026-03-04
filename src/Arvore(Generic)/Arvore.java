@@ -1,5 +1,3 @@
-package Arvore;
-
 public class Arvore<T extends Comparable>{
 
     private Elemento<T> raiz;
@@ -38,6 +36,16 @@ public class Arvore<T extends Comparable>{
 
     public Elemento<T> getRaiz(){
         return raiz;
+    }
+
+    Elemento<T> busca(Elemento<T> p, T chave){
+        if (p != null){
+            if (chave.compareTo(p.getValor()) < 0)
+                p = busca(p.getEsquerda(), chave);
+            else if (chave.compareTo(p.getValor()) > 0)
+                p = busca(p.getDireita(), chave);
+        }
+        return p;
     }
 
     public void emOrdem(Elemento<T> atual){ // esq - cima - dir
