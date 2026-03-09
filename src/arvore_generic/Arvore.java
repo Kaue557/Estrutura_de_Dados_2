@@ -1,3 +1,5 @@
+package arvore_generic;
+
 public class Arvore<T extends Comparable>{
 
     private Elemento<T> raiz;

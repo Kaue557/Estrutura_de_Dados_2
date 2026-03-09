@@ -1,7 +1,11 @@
+package arvore_int;
+
 public class Main {
 
-    public static void main(String[] args){
-        Arvore<Integer> arvore = new Arvore<>();
+    public static void main(String[] args) {
+
+        Arvore arvore = new Arvore();
+
         arvore.adiciona(30); // raiz
         arvore.adiciona(15);
         arvore.adiciona(45);
@@ -11,11 +15,10 @@ public class Main {
         System.out.println("Em ordem:");
         arvore.emOrdem(arvore.getRaiz());
 
-        System.out.println("\n\nPre-ordem:");
+        System.out.println("\nPre-ordem:");
         arvore.preOrdem(arvore.getRaiz());
 
-        System.out.println("\n\nPos-ordem:");
+        System.out.println("\nPos-ordem:");
         arvore.posOrdem(arvore.getRaiz());
-
     }
 }

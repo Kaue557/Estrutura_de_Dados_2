@@ -1,11 +1,9 @@
-package Arvore;
+package arvore_generic;
 
 public class Main {
 
-    public static void main(String[] args) {
-
-        Arvore arvore = new Arvore();
-
+    public static void main(String[] args){
+        Arvore<Integer> arvore = new Arvore<>();
         arvore.adiciona(30); // raiz
         arvore.adiciona(15);
         arvore.adiciona(45);
@@ -15,10 +13,11 @@ public class Main {
         System.out.println("Em ordem:");
         arvore.emOrdem(arvore.getRaiz());
 
-        System.out.println("\nPre-ordem:");
+        System.out.println("\n\nPre-ordem:");
         arvore.preOrdem(arvore.getRaiz());
 
-        System.out.println("\nPos-ordem:");
+        System.out.println("\n\nPos-ordem:");
         arvore.posOrdem(arvore.getRaiz());
+
     }
 }

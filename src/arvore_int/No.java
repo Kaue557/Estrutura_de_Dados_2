@@ -1,4 +1,4 @@
-package Arvore;
+package arvore_int;
 
 public class No {
 
