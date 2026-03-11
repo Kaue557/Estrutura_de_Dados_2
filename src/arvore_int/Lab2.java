@@ -62,5 +62,15 @@ public class Lab2 {
         System.out.println("Em nivel:");
         arvore2.emNivel();
 
+        // PRE-ORDEM ITERATIVO
+        Arvore arvore3 = new Arvore(); // A insercao já segue a regra BST
+
+        arvore3.adiciona(20);
+        arvore3.adiciona(25);
+        arvore3.adiciona(15);
+        arvore3.adiciona(65);
+        arvore3.adiciona(10);
+        arvore3.adiciona(5);
+
     }
 }

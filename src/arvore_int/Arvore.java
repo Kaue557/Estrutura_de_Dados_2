@@ -219,6 +219,25 @@ public class Arvore {
         }
     }
 
+    // Percursos iterativos ---------------------------
+    Arvore arvore3 =  new Arvore();
+
+    public void emOrdemIterativo(No atual, No anterior) { // esquerda - raiz - direita
+
+    }
+
+    public void preOrdemIterativo(No atual, No anterior) { // raiz - esquerda - direita
+        anterior = null;
+        while(atual.getEsquerda() != null){
+            atual = atual.getEsquerda();
+        }
+    }
+
+    public void posOrdemIterativo(No atual) { // esquerda - direita - raiz
+
+    }
+
+
     /*
     -------------------------------------------------------------
     EX2 - em nivel - LAB 2
