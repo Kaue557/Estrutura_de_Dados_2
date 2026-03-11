@@ -49,15 +49,18 @@ public class Lab2 {
         arvore2.adiciona(7);
         arvore2.adiciona(20);
 
-        arvore.preOrdem(arvore.getRaiz());
+        System.out.println("Pre-ordem: ");
+        arvore2.preOrdem(arvore.getRaiz());
         System.out.println();
-        arvore.emOrdem(arvore.getRaiz());
+        System.out.println("Em ordem: ");
+        arvore2.emOrdem(arvore.getRaiz());
         System.out.println();
-        arvore.posOrdem(arvore.getRaiz());
+        System.out.println("Pos-ordem: ");
+        arvore2.posOrdem(arvore.getRaiz());
         System.out.println();
 
         System.out.println("Em nivel:");
-        arvore.emNivel();
+        arvore2.emNivel();
 
     }
 }
