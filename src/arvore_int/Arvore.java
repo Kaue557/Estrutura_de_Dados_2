@@ -1,4 +1,6 @@
 package arvore_int;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Arvore {
 
@@ -169,6 +171,26 @@ public class Arvore {
         return atual;
     }
 
+    /*
+    -------------------------------------------------------------
+    (c) Qual é a altura da árvore? - LAB 2
+    */
+    public int altura(No atual){
+        if(atual == null){
+            return 0;
+        }
+
+        int alturaEsq = altura(atual.getEsquerda());
+        int alturaDir = altura(atual.getDireita());
+
+        return 1 + Math.max(alturaEsq, alturaDir);
+    }
+
+    public int altura(){
+        return altura(this.raiz);
+    }
+
+
 
 
     // Percursos -------------------------------------
@@ -194,6 +216,32 @@ public class Arvore {
             posOrdem(atual.getEsquerda());
             posOrdem(atual.getDireita());
             System.out.println(atual.getValor());
+        }
+    }
+
+    /*
+    -------------------------------------------------------------
+    EX2 - em nivel - LAB 2
+    */
+    public void emNivel(){
+
+        if(raiz == null) return;
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while(!fila.isEmpty()){
+
+            No atual = fila.poll();
+            System.out.println(atual.getValor());
+
+            if(atual.getEsquerda() != null){
+                fila.add(atual.getEsquerda());
+            }
+
+            if(atual.getDireita() != null){
+                fila.add(atual.getDireita());
+            }
         }
     }
 }

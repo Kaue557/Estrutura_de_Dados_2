@@ -1,6 +1,8 @@
 package arvore_int;
 
-public class Main {
+// ****************************** LABORATÓRIO 1 ******************************
+
+public class Lab1 {
 
     public static void main(String[] args) {
 
