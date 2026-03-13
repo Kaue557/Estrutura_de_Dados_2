@@ -263,4 +263,44 @@ public class Arvore {
             }
         }
     }
+
+    /*
+    -------------------------------------------------------------
+    EX3 - ehZigzag - LAB 2
+    */
+    enum Estado {
+        ESQUERDA,
+        DIREITA
+    }
+
+    public boolean ehZigzag(No atual, Estado estado){
+
+        // se for arvore vazia ou se existir apenas raiz
+        if(atual == null || (atual.getEsquerda() == null && atual.getDireita() == null)){
+            return true;
+        }
+
+        if(estado == Estado.ESQUERDA){
+            if(atual.getEsquerda() != null && atual.getDireita() == null){
+                return ehZigzag(atual.getEsquerda(), Estado.DIREITA);
+            }
+            return false;
+        }
+
+        if(estado == Estado.DIREITA){
+            if(atual.getDireita() != null && atual.getEsquerda() == null){
+                return ehZigzag(atual.getDireita(), Estado.ESQUERDA);
+            }
+            return false;
+        }
+
+        return false;
+    }
+
+    boolean ehZigzag(){
+        return ehZigzag(raiz, Estado.ESQUERDA) || ehZigzag(raiz, Estado.DIREITA);
+    }
+
+
+
 }
