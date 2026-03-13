@@ -219,7 +219,7 @@ public class Arvore {
         }
     }
 
-    // Percursos iterativos ---------------------------
+    /* Percursos iterativos ---------------------------
     Arvore arvore3 =  new Arvore();
 
     public void emOrdemIterativo(No atual, No anterior) { // esquerda - raiz - direita
@@ -236,7 +236,7 @@ public class Arvore {
     public void posOrdemIterativo(No atual) { // esquerda - direita - raiz
 
     }
-
+    */
 
     /*
     -------------------------------------------------------------
@@ -301,6 +301,44 @@ public class Arvore {
         return ehZigzag(raiz, Estado.ESQUERDA) || ehZigzag(raiz, Estado.DIREITA);
     }
 
+    /*
+    -------------------------------------------------------------
+    EX4 - estritamenteBinaria - LAB 2
+    */
+
+    public boolean estritamenteBinaria(No atual){
+        if(atual == null || (atual.getEsquerda() == null && atual.getDireita() == null)){
+            return true;
+        }
+
+        else{
+            if((atual.getEsquerda() == null && atual.getDireita() != null) || (atual.getEsquerda() != null && atual.getDireita() == null)){
+                return false;
+            }
+
+            return  estritamenteBinaria(atual.getEsquerda()) && estritamenteBinaria(atual.getDireita());
 
 
+        }
+    }
+
+    /*
+    -------------------------------------------------------------
+    EX5 - devolvePares - LAB 2
+    */
+    public Arvore devolvePar(){
+        Arvore arv = new Arvore();
+        inserePares(arv, raiz);
+        return arv;
+    }
+
+    private void inserePares(Arvore arv, No atual){
+        if(atual != null){
+            if(atual.getValor() % 2 == 0){ // se for par
+                arv.adiciona(atual.getValor());
+            }
+            inserePares(arv, atual.getEsquerda());
+            inserePares(arv, atual.getDireita());
+        }
+    }
 }

@@ -71,6 +71,23 @@ public class Lab2 {
         arvore3.adiciona(65);
         arvore3.adiciona(10);
         arvore3.adiciona(5);
+        System.out.println();
+
+        // cria nova arvore com apenas os pares
+        Arvore arv = new Arvore();
+        arv.adiciona(10);
+        arv.adiciona(5);
+        arv.adiciona(20);
+        arv.adiciona(2);
+        arv.adiciona(7);
+        arv.adiciona(30);
+        System.out.println();
+
+        Arvore pares = arv.devolvePar();
+
+        // imprime
+        System.out.println("Arvore de pares:");
+        pares.emOrdem(pares.getRaiz());
 
     }
 }
