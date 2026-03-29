@@ -14,16 +14,6 @@ public class Exercicio1{
     }
 
     //2. Escreva uma funcao que exclui todos os nós de uma arvore binaria de busca com ID par.
-    /*
-    public int contaNo(No atual){
-        if(atual == null) return 0;
-
-        else{
-            int cont = 0;
-            return cont = 1 + contaNo(atual.getEsquerda()) + contaNo(atual.getDireita()); // atual +  lado esq + lado dir
-        }
-    }
-    */
     void removePar(No atual){
 
     }

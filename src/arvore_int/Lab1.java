@@ -8,11 +8,12 @@ public class Lab1 {
 
         Arvore arvore = new Arvore();
 
-        arvore.adiciona(30); // raiz
-        arvore.adiciona(15);
-        arvore.adiciona(45);
-        arvore.adiciona(51);
-        arvore.adiciona(19);
+        arvore.adiciona(35); // raiz
+        arvore.adiciona(14);
+        arvore.adiciona(7);
+        arvore.adiciona(22);
+        arvore.adiciona(20);
+
         System.out.println();
 
         /*

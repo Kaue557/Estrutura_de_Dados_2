@@ -44,6 +44,7 @@ public class Arvore {
         return raiz;
     }
 
+    // p -> o que procuramos / chave -> onde estamos (raiz, por exemplo)
     public No busca(No p, int chave) {
         if (p != null) {
             if (chave < p.getValor()) {
