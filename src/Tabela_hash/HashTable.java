@@ -1,53 +1,71 @@
 package Tabela_hash;
 
-// ***************** tabela hash com tratamento de colisão por encadeamento (lista ligada).
-class Data {
-    int key;
-    int value;
-    Data next; // ponteiro para o próximo elemento (lista ligada)
-
-    public Data(int key, int value) {
-        this.key = key;
-        this.value = value;
-        this.next = null;
-    }
-}
-
 public class HashTable {
 
-    private static final int SIZE = 10;
-    private Data[] hashTable;
+    private static final int SIZE = 11; // numero primo melhora distribuicao (m = SIZE)
+    private Data[] table;
 
     public HashTable() {
-        hashTable = new Data[SIZE];
+        table = new Data[SIZE];
     }
 
     private int hash(int key) {
         return key % SIZE;
     }
 
-    public void insertOnHash(int key, int value) {
+    public void insert(int key, int value) {
         int index = hash(key);
+        Data current = table[index];
 
-        Data item = new Data(key, value);
+        // Verifica duplicidade
+        while (current != null) {
+            if (current.key == key) {
+                current.value = value;
+                return;
+            }
+            current = current.next;
+        }
 
-        // Insere no início da lista (encadeamento)
-        item.next = hashTable[index];
-        hashTable[index] = item;
+        Data newNode = new Data(key, value);
+        newNode.next = table[index];
+        table[index] = newNode;
     }
 
-    public Data search(int key) {
+    public Integer search(int key) {
         int index = hash(key);
-
-        Data current = hashTable[index];
+        Data current = table[index];
 
         while (current != null) {
             if (current.key == key) {
-                return current;
+                return current.value;
             }
             current = current.next;
         }
 
         return null;
+    }
+
+    public boolean remove(int key) {
+        int index = hash(key);
+        Data current = table[index];
+        Data prev = null;
+
+        while (current != null) {
+            if (current.key == key) {
+
+                if (prev == null) {
+                    table[index] = current.next;
+                } else {
+                    prev.next = current.next;
+                }
+
+                return true;
+            }
+
+            prev = current;
+            current = current.next;
+        }
+
+        return false;
     }
 }
