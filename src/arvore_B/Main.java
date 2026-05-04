@@ -3,40 +3,29 @@ package arvore_B;
 public class Main {
     public static void main(String[] args) {
 
-        // Criando uma Árvore B de ordem 2
-        // (Máximo de 4 chaves por nó, min de 2, exceto a raiz)
-        ArvoreB arvore = new ArvoreB(2);
+        ArvoreB arvore = new ArvoreB(4); // coerente com seu NoB (m-1 chaves)
 
-        // A exata sequência de testes do seu PDF:
         int[] sequenciaPDF = {20, 40, 10, 30, 15, 50, 60, 70, 80};
 
-        System.out.println("Iniciando inserções...");
-        for (int valor : sequenciaPDF) {
-            System.out.println("\nInserindo o valor: " + valor);
-            arvore.inserir(valor);
+        System.out.println("=== INSERÇÕES ===");
 
-            // Imprimimos a árvore a cada passo para ver as cisões acontecendo
+        for (int valor : sequenciaPDF) {
+            System.out.println("\n>>> Inserindo: " + valor);
+            arvore.inserir(valor);
             arvore.imprimir();
         }
 
-        System.out.println("\n--- TESTANDO A BUSCA ---");
+        System.out.println("=== BUSCA ===");
 
-        // Testando um valor que EXISTE (ex: 30)
-        int alvoSucesso = 30;
-        NoB resultado1 = arvore.buscar(alvoSucesso);
-        if (resultado1 != null) {
-            System.out.println("SUCESSO: Valor " + alvoSucesso + " encontrado na árvore!");
-        } else {
-            System.out.println("FALHA: Valor " + alvoSucesso + " não encontrado.");
-        }
+        int[] testes = {30, 99};
 
-        // Testando um valor que NÃO EXISTE
-        int alvoFalha = 99;
-        NoB resultado2 = arvore.buscar(alvoFalha);
-        if (resultado2 != null) {
-            System.out.println("SUCESSO: Valor " + alvoFalha + " encontrado na árvore!");
-        } else {
-            System.out.println("FALHA: Valor " + alvoFalha + " não encontrado.");
+        for (int alvo : testes) {
+            NoB resultado = arvore.buscar(alvo);
+            if (resultado != null) {
+                System.out.println("Valor " + alvo + " encontrado.");
+            } else {
+                System.out.println("Valor " + alvo + " NÃO encontrado.");
+            }
         }
     }
 }

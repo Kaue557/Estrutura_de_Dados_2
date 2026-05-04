@@ -176,37 +176,52 @@ public class ArvoreB {
     }
 
     // ------------ metodos para visualizacao da arvore ------------
-    public void imprimir() {
-        if (this.raiz == null) {
-            System.out.println("A árvore está vazia.");
-        } else {
-            System.out.println("--- Estrutura da Árvore B ---");
-            imprimirAuxiliar(this.raiz, 0);
-            System.out.println("-----------------------------");
+    private void imprimirEstruturado(NoB no, String prefixo, boolean ultimo) {
+        if (no == null) return;
+
+        // Desenha o "galho"
+        System.out.print(prefixo);
+        System.out.print(ultimo ? "└── " : "├── ");
+
+        // Tipo do nó
+        System.out.print(no.folha ? "[Folha] " : "[Interno] ");
+
+        // Chaves
+        System.out.print("Chaves: [ ");
+        for (int i = 0; i < no.n; i++) {
+            System.out.print(no.chaves[i] + " ");
         }
-    }
+        System.out.println("]");
 
-    // Metodo recursivo que imprime os andares (níveis)
-    private void imprimirAuxiliar(NoB no, int nivel) {
-        if (no != null) {
-            // Imprime os recuos (espaços) para cada nível, para dar efeito de escada
-            for (int i = 0; i < nivel; i++) {
-                System.out.print("    ");
-            }
+        // Novo prefixo para os filhos
+        String novoPrefixo = prefixo + (ultimo ? "    " : "│   ");
 
-            // Imprime as chaves do nó atual
-            System.out.print("Nível " + nivel + " [ ");
-            for (int i = 0; i < no.n; i++) {
-                System.out.print(no.chaves[i] + " ");
-            }
-            System.out.println("]");
+        // Imprime filhos com índice
+        if (!no.folha) {
+            for (int i = 0; i <= no.n; i++) {
+                if (no.filhos[i] != null) {
+                    System.out.print(novoPrefixo);
+                    System.out.println("Filho " + i + ":");
 
-            // Se não for folha, desce para imprimir os filhos
-            if (!no.folha) {
-                for (int i = 0; i <= no.n; i++) {
-                    imprimirAuxiliar(no.filhos[i], nivel + 1);
+                    imprimirEstruturado(
+                            no.filhos[i],
+                            novoPrefixo,
+                            (i == no.n)
+                    );
                 }
             }
         }
+    }
+
+    // Metodo principal
+    public void imprimir() {
+        if (this.raiz == null) {
+            System.out.println("Árvore vazia.");
+            return;
+        }
+
+        System.out.println("\n===== ÁRVORE B =====");
+        imprimirEstruturado(this.raiz, "", true);
+        System.out.println("====================\n");
     }
 }
