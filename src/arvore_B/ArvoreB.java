@@ -233,6 +233,17 @@ public class ArvoreB {
         return i;
     }
 
+    private int getPredecessor(NoB no, int idx) {
+        NoB atual = no.filhos[idx];
+
+        // desce até a folha mais à direita
+        while (!atual.folha) {
+            atual = atual.filhos[atual.n];
+        }
+
+        return atual.chaves[atual.n - 1];
+    }
+
     private void removerDeFolha(NoB no, int idx) {
         // desloca tudo para a esquerda
         for (int i = idx; i < no.n - 1; i++) {
@@ -244,40 +255,49 @@ public class ArvoreB {
         no.n--;
     }
 
-    private void removerInterno(NoB no, int idx){
+    private void removerInterno(NoB no, int idx) {
 
+        int valor = no.chaves[idx];
+
+        // pega predecessor
+        int pred = getPredecessor(no, idx);
+
+        // substitui no nó interno
+        no.chaves[idx] = pred;
+
+        // agora remove o predecessor na subárvore
+        removerRec(no.filhos[idx], pred);
+    }
+
+    private void removerRec(NoB no, int valor) {
+
+        int idx = encontrarIndice(no, valor);
+
+        // CASO 1: chave está no nó
+        if (idx < no.n && no.chaves[idx] == valor) {
+
+            if (no.folha) {
+                removerDeFolha(no, idx);
+            } else {
+                removerInterno(no, idx);
+            }
+        }
+        else {
+            // ainda não implementado: descer (caso completo)
+            if (!no.folha) { // caso não seja folha
+                removerRec(no.filhos[idx], valor);
+            }
+        }
     }
 
     public String remover(int valor) {
 
         if (this.raiz == null) {
-            return "Árvore já está vazia!";
+            return "Árvore vazia!";
         }
 
-        NoB no = buscarNo(raiz, valor);
+        removerRec(this.raiz, valor);
 
-        if (no == null) {
-            return "Valor não encontrado!";
-        }
-
-        int idx = encontrarIndice(no, valor);
-
-        // garante que realmente encontrou
-        if (idx >= no.n || no.chaves[idx] != valor) {
-            return "Valor não encontrado!";
-        }
-
-        // CASO 1: nó folha
-        if (no.folha) {
-            removerDeFolha(no, idx);
-            return "Remoção realizada em folha.";
-        }
-
-        // CASO 2: nó interno
-        if(!no.folha){
-            removerInterno(no, idx);
-            return "Remoção realizada em nó interno";
-        }
-
+        return "Remoção executada.";
     }
 }

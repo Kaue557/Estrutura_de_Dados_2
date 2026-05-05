@@ -15,6 +15,10 @@ public class Main {
             arvore.imprimir();
         }
 
+        arvore.remover(30);
+        System.out.println("Após remoção do 30:");
+        arvore.imprimir();
+
         System.out.println("=== BUSCA ===");
 
         int[] testes = {30, 99};
