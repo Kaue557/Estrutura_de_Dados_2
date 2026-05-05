@@ -224,4 +224,60 @@ public class ArvoreB {
         imprimirEstruturado(this.raiz, "", true);
         System.out.println("====================\n");
     }
+
+    private int encontrarIndice(NoB no, int valor) {
+        int i = 0;
+        while (i < no.n && valor > no.chaves[i]) {
+            i++;
+        }
+        return i;
+    }
+
+    private void removerDeFolha(NoB no, int idx) {
+        // desloca tudo para a esquerda
+        for (int i = idx; i < no.n - 1; i++) {
+            no.chaves[i] = no.chaves[i + 1];
+        }
+        // limpar último valor
+        no.chaves[no.n - 1] = 0;
+
+        no.n--;
+    }
+
+    private void removerInterno(NoB no, int idx){
+
+    }
+
+    public String remover(int valor) {
+
+        if (this.raiz == null) {
+            return "Árvore já está vazia!";
+        }
+
+        NoB no = buscarNo(raiz, valor);
+
+        if (no == null) {
+            return "Valor não encontrado!";
+        }
+
+        int idx = encontrarIndice(no, valor);
+
+        // garante que realmente encontrou
+        if (idx >= no.n || no.chaves[idx] != valor) {
+            return "Valor não encontrado!";
+        }
+
+        // CASO 1: nó folha
+        if (no.folha) {
+            removerDeFolha(no, idx);
+            return "Remoção realizada em folha.";
+        }
+
+        // CASO 2: nó interno
+        if(!no.folha){
+            removerInterno(no, idx);
+            return "Remoção realizada em nó interno";
+        }
+
+    }
 }
