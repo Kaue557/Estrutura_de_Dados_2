@@ -244,6 +244,124 @@ public class ArvoreB {
         return atual.chaves[atual.n - 1];
     }
 
+    private int getSucessor(NoB no, int idx) {
+
+        NoB atual = no.filhos[idx + 1];
+
+        while (!atual.folha) {
+            atual = atual.filhos[0];
+        }
+
+        return atual.chaves[0];
+    }
+
+    private int minimoChaves() {
+        return (this.ordem - 1) / 2;
+    }
+
+    // EMPRESTAR DA ESQUERDA
+    private void emprestarDaEsquerda(NoB pai, int idx) {
+
+        NoB filho = pai.filhos[idx];
+        NoB irmao = pai.filhos[idx - 1];
+
+        // abre espaço no filho
+        for (int i = filho.n - 1; i >= 0; i--) {
+            filho.chaves[i + 1] = filho.chaves[i];
+        }
+
+        // se não for folha, desloca filhos
+        if (!filho.folha) {
+            for (int i = filho.n; i >= 0; i--) {
+                filho.filhos[i + 1] = filho.filhos[i];
+            }
+        }
+
+        // chave do pai desce
+        filho.chaves[0] = pai.chaves[idx - 1];
+
+        // último filho do irmão vem junto
+        if (!irmao.folha) {
+            filho.filhos[0] = irmao.filhos[irmao.n];
+        }
+
+
+
+        // maior chave do irmão sobe
+        pai.chaves[idx - 1] = irmao.chaves[irmao.n - 1];
+
+        filho.n++;
+        irmao.n--;
+    }
+
+    // EMPRESTAR DA DIREITA
+    private void emprestarDaDireita(NoB pai, int idx) {
+
+        NoB filho = pai.filhos[idx];
+        NoB irmao = pai.filhos[idx + 1];
+
+        // chave do pai desce
+        filho.chaves[filho.n] = pai.chaves[idx];
+
+        // filho do irmão vem junto
+        if (!filho.folha) {
+            filho.filhos[filho.n + 1] = irmao.filhos[0];
+        }
+
+        // primeira chave do irmão sobe
+        pai.chaves[idx] = irmao.chaves[0];
+
+        // shift esquerda no irmão
+        for (int i = 0; i < irmao.n - 1; i++) {
+            irmao.chaves[i] = irmao.chaves[i + 1];
+        }
+
+        // shift filhos
+        if (!irmao.folha) {
+            for (int i = 0; i < irmao.n; i++) {
+                irmao.filhos[i] = irmao.filhos[i + 1];
+            }
+        }
+
+        filho.n++;
+        irmao.n--;
+    }
+
+    private void fundir(NoB pai, int idx) {
+
+        NoB esquerdo = pai.filhos[idx];
+        NoB direito = pai.filhos[idx + 1];
+
+        // chave do pai desce
+        esquerdo.chaves[esquerdo.n] = pai.chaves[idx];
+
+        // copia chaves do direito
+        for (int i = 0; i < direito.n; i++) {
+            esquerdo.chaves[esquerdo.n + 1 + i] = direito.chaves[i];
+        }
+
+        // copia filhos
+        if (!esquerdo.folha) {
+            for (int i = 0; i <= direito.n; i++) {
+                esquerdo.filhos[esquerdo.n + 1 + i] = direito.filhos[i];
+            }
+        }
+
+        esquerdo.n += direito.n + 1;
+
+        // remove chave do pai
+        for (int i = idx; i < pai.n - 1; i++) {
+            pai.chaves[i] = pai.chaves[i + 1];
+        }
+
+        // remove ponteiro do irmão direito
+        for (int i = idx + 1; i < pai.n; i++) {
+            pai.filhos[i] = pai.filhos[i + 1];
+        }
+
+        pai.n--;
+    }
+
     private void removerDeFolha(NoB no, int idx) {
         // desloca tudo para a esquerda
         for (int i = idx; i < no.n - 1; i++) {
@@ -272,19 +390,101 @@ public class ArvoreB {
     private void removerRec(NoB no, int valor) {
 
         int idx = encontrarIndice(no, valor);
+        int minimo = minimoChaves();
 
-        // CASO 1: chave está no nó
+        // --------------------------------------------------
+        // CASO 1: chave encontrada neste nó
+        // --------------------------------------------------
+
         if (idx < no.n && no.chaves[idx] == valor) {
 
+            // ---------------- folha ----------------
             if (no.folha) {
                 removerDeFolha(no, idx);
-            } else {
-                removerInterno(no, idx);
+            }
+
+            // ---------------- interno ----------------
+            else {
+
+                NoB filhoEsq = no.filhos[idx];
+                NoB filhoDir = no.filhos[idx + 1];
+
+                // predecessor
+                if (filhoEsq.n > minimo) {
+
+                    int pred = getPredecessor(no, idx);
+
+                    no.chaves[idx] = pred;
+
+                    removerRec(filhoEsq, pred);
+                }
+
+                // sucessor
+                else if (filhoDir.n > minimo) {
+
+                    int succ = getSucessor(no, idx);
+
+                    no.chaves[idx] = succ;
+
+                    removerRec(filhoDir, succ);
+                }
+
+                // merge
+                else {
+
+                    fundir(no, idx);
+
+                    removerRec(filhoEsq, valor);
+                }
             }
         }
+
+        // --------------------------------------------------
+        // CASO 2: chave NÃO está neste nó
+        // --------------------------------------------------
+
         else {
-            // ainda não implementado: descer (caso completo)
-            if (!no.folha) { // caso não seja folha
+
+            // chegou em folha -> não existe
+            if (no.folha) {
+                return;
+            }
+
+            boolean ultimoFilho = (idx == no.n);
+
+            NoB filho = no.filhos[idx];
+
+            // garante mínimo antes de descer
+            if (filho.n == minimo) {
+
+                // tenta esquerda
+                if (idx > 0 && no.filhos[idx - 1].n > minimo) {
+
+                    emprestarDaEsquerda(no, idx);
+                }
+
+                // tenta direita
+                else if (idx < no.n && no.filhos[idx + 1].n > minimo) {
+
+                    emprestarDaDireita(no, idx);
+                }
+
+                // merge
+                else {
+
+                    if (idx < no.n) {
+                        fundir(no, idx);
+                    } else {
+                        fundir(no, idx - 1);
+                        idx--;
+                    }
+                }
+            }
+
+            // após merge pode mudar
+            if (ultimoFilho && idx > no.n) {
+                removerRec(no.filhos[idx - 1], valor);
+            } else {
                 removerRec(no.filhos[idx], valor);
             }
         }
@@ -297,6 +497,16 @@ public class ArvoreB {
         }
 
         removerRec(this.raiz, valor);
+
+        // raiz vazia
+        if (this.raiz.n == 0) {
+
+            if (this.raiz.folha) {
+                this.raiz = null;
+            } else {
+                this.raiz = this.raiz.filhos[0];
+            }
+        }
 
         return "Remoção executada.";
     }

@@ -21,7 +21,7 @@ public class Main {
         System.out.println("\nPos-ordem:");
         arvore.posOrdem(arvore.getRaiz());
 
-        // remoçao
+        // remoção
         arvore.remover(20);
         System.out.println("Em ordem:");
         arvore.emOrdem(arvore.getRaiz());

@@ -16,6 +16,8 @@ public class Main {
         }
 
         arvore.remover(30);
+        arvore.remover(70);
+        arvore.remover(80);
         System.out.println("Após remoção do 30:");
         arvore.imprimir();
 
