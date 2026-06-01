@@ -10,7 +10,7 @@ public class HashTable {
     }
 
     private int hash(int key) {
-        return key % SIZE;
+        return key % SIZE; // metodo da divisão
     }
 
     public void insert(int key, int value) {
